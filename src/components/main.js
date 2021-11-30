@@ -1,7 +1,8 @@
 import React from "react";
-import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
-import Button from "@mui/material/Button";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
 import "./styles/styles.scss";
 import Rendermodal from "./modal";
 import { LazyLoadImage } from "react-lazy-load-image-component";
@@ -29,12 +30,12 @@ const Renderimagecomponent = (props) => {
         </Button>
       </div>
       <section>
-        <Container maxWidth="sm">
-          <Grid>
+        <Container>
+          <Row xs={5} className="no-gutters">
             {props.loadDefaultImages.map((fetchImages) => {
               return (
                 <>
-                  <Grid item key={fetchImages.id}>
+                  <Col key={fetchImages.id}>
                     <div className="img-wrapper">
                       <LazyLoadImage
                         src={fetchImages.download_url}
@@ -51,11 +52,11 @@ const Renderimagecomponent = (props) => {
                       />
                       <h5>{fetchImages.author}</h5>
                     </div>
-                  </Grid>
+                  </Col>
                 </>
               );
             })}
-          </Grid>
+          </Row>
           <Loadmoredata />
           <Rendermodal />
         </Container>

@@ -1,88 +1,93 @@
-import React from "react";
-import Backdrop from "@mui/material/Backdrop";
-import Box from "@mui/material/Box";
-import Modal from "@mui/material/Modal";
-import Fade from "@mui/material/Fade";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
+import React, { useContext } from "react";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import downloadImg from "../images/download-flat.png";
-import Grid from "@mui/material/Grid";
+import { Data } from "./master";
 
-const Rendermodal = (props) => {
+const Rendermodal = () => {
   const getImageState = localStorage.getItem("Grayscale");
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 400,
-    bgcolor: "background.paper",
-    border: "2px solid #000",
-    boxShadow: 24,
-    p: 4,
-  };
-  const handleImageCustomization = () => {
-    if (props.imageGrayscale) {
+  const {
+    show,
+    handleClose,
+    authorName,
+    imageGrayscale,
+    handleWidth,
+    handleHeight,
+    handleImageSize,
+    images,
+    handleGrayscaleImage,
+    handleColorImage,
+    grayScale,
+    // handleImageDownload
+  } = useContext(Data);
+
+  const handleImageCustomization = (imgGrayscale) => {
+    if (imgGrayscale) {
       return "?grayscale";
     }
     return "";
   };
-  const handleImageOptions = () => {
-    if (getImageState === "false" && props.grayScale) {
+  const handleImageOptions = (imgSaturation) => {
+    if (getImageState === "false" && imgSaturation) {
       return "grayscale";
     }
     return "";
   };
   return (
     <Modal
-      open={props.open}
-      onClose={props.handleClose}
-      closeAfterTransition
-      BackdropComponent={Backdrop}
-      BackdropProps={{
-        timeout: 500,
-      }}
+      show={Boolean(show)}
+      onHide={handleClose}
+      backdrop="static"
+      keyboard={false}
+      size="lg"
+      centered
     >
-      <Fade in={props.open}>
-        <Box lg={style}>
-          <Typography id="transition-modal-title" variant="h6" component="h2">
-            A Photo By <span> {props.authorName} </span>
-          </Typography>
-          <Box>
-            <img
-              src={props.images + `${handleImageCustomization()}`}
-              alt="Upsplash Images"
-              className={handleImageOptions()}
-            />
-          </Box>
-          <Grid container fixed spacing={1}>
-            <Grid item md={3}>
-              <Button onClick={props.handleGrayscaleImage}>Grayscale</Button>
-              <Button onClick={props.handleColorImage}> Color </Button>
-            </Grid>
-            <Grid item md={6}>
-              <item className="input-wrapper">
-                <input
-                  type="number"
-                  placeholder="Enter Width"
-                  onChange={(e) => props.handleWidth(e.target.value)}
-                />
-                <input
-                  type="number"
-                  placeholder="Enter Height"
-                  onChange={(e) => props.handleHeight(e.target.value)}
-                />
-                <Button onClick={props.handleImageSize}> Set </Button>
-              </item>
-            </Grid>
-            <Grid item md={3}>
-              <item className="img-center">
-                <img src={downloadImg} alt="Download Img" />
-              </item>
-            </Grid>
-          </Grid>
-        </Box>
-      </Fade>
+      <Modal.Header closeButton>
+        <Modal.Title>
+          A Photo By <span>{authorName}</span>
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <img
+          src={images + handleImageCustomization(imageGrayscale)}
+          alt="Upsplash Images"
+          className={handleImageOptions(grayScale)}
+        />
+      </Modal.Body>
+      <Modal.Footer>
+        <Row className="no-gutters">
+          <Col md="3">
+            <Button onClick={handleGrayscaleImage}>Grayscale</Button>
+            <Button onClick={handleColorImage}>Color</Button>
+          </Col>
+          <Col md="6">
+            <div className="input-wrapper">
+              <input
+                type="number"
+                placeholder="Enter Width"
+                onChange={(e) => handleWidth(e.target.value)}
+              />
+              <input
+                type="number"
+                placeholder="Enter Height"
+                onChange={(e) => handleHeight(e.target.value)}
+              />
+              <Button onClick={handleImageSize}>Set</Button>
+            </div>
+          </Col>
+          <Col md="3">
+            <div className="img-center">
+              <img
+                src={downloadImg}
+                alt="Download Img"
+                // onClick={handleImageDownload}
+              />
+            </div>
+          </Col>
+        </Row>
+      </Modal.Footer>
     </Modal>
   );
 };

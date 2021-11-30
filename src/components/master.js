@@ -9,7 +9,7 @@ const loadMoreData = createContext();
 const Rendermastercomponent = () => {
   const [loadDefaultImages, setLoadDefaultImages] = useState([]);
   const [grayScale, setGrayScale] = useState(false);
-  const [open, setOpen] = useState(false);
+  const [show, setShow] = useState(false);
   const [images, setImages] = useState();
   const [authorName, setAuthorName] = useState("");
   const [imageGrayscale, setImageGrayscale] = useState("");
@@ -18,7 +18,7 @@ const Rendermastercomponent = () => {
   const [imageHeight, setImageHeight] = useState("");
   const [imageId, setImageId] = useState("");
   const [loadMoreImages, setLoadMoreImages] = useState([]);
-  const [morePage, setMorePage] = useState(0);
+  // const [morePage, setMorePage] = useState(0);
 
   useEffect(() => {
     /* use list api to fetch all the images */
@@ -38,17 +38,17 @@ const Rendermastercomponent = () => {
     setButtonActiveColor(!buttonActiveColor);
   };
   const handleClose = () => {
-    setOpen(false);
+    setShow(false);
     setImageGrayscale("");
   };
   const handleImage = (id, specificImage, authorName) => {
-    setOpen(images);
+    setShow(images);
     setImageId(id);
     setAuthorName(authorName);
     setImages(specificImage);
   };
   const handleMoreImage = (imageId, newSpecificImage, newImageAuthorName) => {
-    setOpen(images);
+    setShow(images);
     setImageId(imageId);
     setAuthorName(newImageAuthorName);
     setImages(newSpecificImage);
@@ -70,22 +70,22 @@ const Rendermastercomponent = () => {
   const handleImageSize = () => {
     setImages(baseUrl + `id/${imageId}/${imageWidth}/${imageHeight}`);
   };
-  const fetchMoreData = () => {
-    setMorePage(morePage + 1);
-    axios
-      .get(baseUrl + `v2/list?page=${morePage}&limit=10`)
-      .then((response) => {
-        setTimeout(() => {
-          setLoadMoreImages(response.data);
-        }, 3000);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  // const fetchMoreData = () => {
+  //   setMorePage(morePage + 1);
+  //   axios
+  //     .get(baseUrl + `v2/list?page=${morePage}&limit=10`)
+  //     .then((response) => {
+  //       setTimeout(() => {
+  //         setLoadMoreImages(response.data);
+  //       }, 3000);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
   const values = {
-    open,
-    setOpen,
+    show,
+    setShow,
     handleClose,
     authorName,
     setAuthorName,
@@ -105,7 +105,6 @@ const Rendermastercomponent = () => {
   const moreData = {
     loadMoreImages,
     setLoadMoreImages,
-    fetchMoreData,
     handleMoreImage,
     grayScale,
     setGrayScale,
@@ -121,7 +120,7 @@ const Rendermastercomponent = () => {
             grayScale={grayScale}
             handleImage={handleImage}
             buttonActiveColor={buttonActiveColor}
-          />{" "}
+          />
         </loadMoreData.Provider>
       </Data.Provider>
     </>
