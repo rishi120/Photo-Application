@@ -54,14 +54,27 @@ body {
                 transition: 0.3s ease;
             }
             h5 {
-                font: 14px $fonts;
+                font: 13px $fonts;
                 padding: 10px;
+            }
+        }
+        .pagination-button-wrapper {
+            margin: 30px 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            button {
+                background-color: #932a33;
+                border: 0;
+                font: 15px $fonts;
+                width: 100px;
+                margin: 0 10px 0 10px;
             }
         }
     }
     .modal {
         z-index: 1299;
-        backdrop-filter: blur(10px);
+        backdrop-filter: blur(5px);
         display: flex !important;
         justify-content: center;
         align-items: center;
@@ -103,9 +116,10 @@ body {
                 button {
                     border-radius: 5%;
                     background-color: #121212;
-                    width: auto;
+                    width: 45%;
                     margin: 0 5px 0 0;
-                    font: 10px $fonts;
+                    padding: 0;
+                    font: 8px $fonts;
                     border: 0;
                     color: #fff;
                     text-align: center;
@@ -119,7 +133,7 @@ body {
                 // }
                 .input-wrapper {
                     input {
-                        width: 120px;
+                        width: 100px;
                         margin: 0 5px 0 0;
                         font: 12px $fonts;
                         height: 30px;
@@ -127,6 +141,9 @@ body {
                             font: 12px $fonts;
                             color: #121212;
                         }
+                    }
+                    button {
+                        width: 20%;
                     }
                 }
                 .img-center {

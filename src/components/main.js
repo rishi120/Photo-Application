@@ -7,7 +7,7 @@ import "./styles/styles.scss";
 import Rendermodal from "./modal";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
-import Loadmoredata from "./Loadmoredata";
+// import Loadmoredata from "./Loadmoredata";
 
 const Renderimagecomponent = (props) => {
   const addDynamicClass = () => {
@@ -57,7 +57,11 @@ const Renderimagecomponent = (props) => {
               );
             })}
           </Row>
-          <Loadmoredata />
+          <div className="pagination-button-wrapper">
+            <Button onClick={props.handlePrev}>Previous</Button>
+            <Button onClick={props.handleNext}>Next</Button>
+          </div>
+          {/* <Loadmoredata /> */}
           <Rendermodal />
         </Container>
       </section>

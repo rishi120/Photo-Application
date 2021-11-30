@@ -18,12 +18,12 @@ const Rendermastercomponent = () => {
   const [imageHeight, setImageHeight] = useState("");
   const [imageId, setImageId] = useState("");
   const [loadMoreImages, setLoadMoreImages] = useState([]);
-  // const [morePage, setMorePage] = useState(0);
+  const [morePage, setMorePage] = useState(2);
 
   useEffect(() => {
     /* use list api to fetch all the images */
     axios
-      .get(baseUrl + "v2/list?page&limit=60")
+      .get(baseUrl + "v2/list")
       .then((response) => {
         setLoadDefaultImages(response.data);
       })
@@ -83,6 +83,30 @@ const Rendermastercomponent = () => {
   //       console.log(error);
   //     });
   // };
+  const handleNext = () => {
+    window.scrollTo(0, 0);
+    setMorePage(morePage + 1);
+    axios
+      .get(baseUrl + `v2/list?page=${morePage}`)
+      .then((response) => {
+        setLoadDefaultImages(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  const handlePrev = () => {
+    window.scrollTo(0, 0);
+    setMorePage(morePage - 1);
+    axios
+      .get(baseUrl + `v2/list?page=${morePage}`)
+      .then((response) => {
+        setLoadDefaultImages(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   const values = {
     show,
     setShow,
@@ -120,6 +144,8 @@ const Rendermastercomponent = () => {
             grayScale={grayScale}
             handleImage={handleImage}
             buttonActiveColor={buttonActiveColor}
+            handleNext={handleNext}
+            handlePrev={handlePrev}
           />
         </loadMoreData.Provider>
       </Data.Provider>

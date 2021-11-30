@@ -62,7 +62,7 @@ const Rendermodal = () => {
             <Button onClick={handleGrayscaleImage}>Grayscale</Button>
             <Button onClick={handleColorImage}>Color</Button>
           </Col>
-          <Col md="6">
+          <Col md="7">
             <div className="input-wrapper">
               <input
                 type="number"
@@ -77,7 +77,7 @@ const Rendermodal = () => {
               <Button onClick={handleImageSize}>Set</Button>
             </div>
           </Col>
-          <Col md="3">
+          <Col md="2">
             <div className="img-center">
               <img
                 src={downloadImg}
