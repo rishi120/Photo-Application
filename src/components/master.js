@@ -18,7 +18,7 @@ const Rendermastercomponent = () => {
   const [imageHeight, setImageHeight] = useState("");
   const [imageId, setImageId] = useState("");
   const [loadMoreImages, setLoadMoreImages] = useState([]);
-  const [morePage, setMorePage] = useState(2);
+  const [morePage, setMorePage] = useState(0);
 
   useEffect(() => {
     /* use list api to fetch all the images */
@@ -70,26 +70,13 @@ const Rendermastercomponent = () => {
   const handleImageSize = () => {
     setImages(baseUrl + `id/${imageId}/${imageWidth}/${imageHeight}`);
   };
-  // const fetchMoreData = () => {
-  //   setMorePage(morePage + 1);
-  //   axios
-  //     .get(baseUrl + `v2/list?page=${morePage}&limit=10`)
-  //     .then((response) => {
-  //       setTimeout(() => {
-  //         setLoadMoreImages(response.data);
-  //       }, 3000);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
   const handleNext = () => {
     window.scrollTo(0, 0);
-    setMorePage(morePage + 1);
     axios
-      .get(baseUrl + `v2/list?page=${morePage}`)
+      .get(baseUrl + `v2/list?page=${morePage + 1}`)
       .then((response) => {
         setLoadDefaultImages(response.data);
+        setMorePage(morePage + 1);
       })
       .catch((error) => {
         console.log(error);
@@ -97,16 +84,17 @@ const Rendermastercomponent = () => {
   };
   const handlePrev = () => {
     window.scrollTo(0, 0);
-    setMorePage(morePage - 1);
     axios
-      .get(baseUrl + `v2/list?page=${morePage}`)
+      .get(baseUrl + `v2/list?page=${morePage - 1}`)
       .then((response) => {
         setLoadDefaultImages(response.data);
+        setMorePage(morePage - 1);
       })
       .catch((error) => {
         console.log(error);
       });
   };
+
   const values = {
     show,
     setShow,

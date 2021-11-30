@@ -8,6 +8,7 @@ import { Data } from "./master";
 
 const Rendermodal = () => {
   const getImageState = localStorage.getItem("Grayscale");
+
   const {
     show,
     handleClose,

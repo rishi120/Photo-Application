@@ -31,11 +31,11 @@ const Renderimagecomponent = (props) => {
       </div>
       <section>
         <Container>
-          <Row xs={5} className="no-gutters">
+          <Row className="no-gutters">
             {props.loadDefaultImages.map((fetchImages) => {
               return (
                 <>
-                  <Col key={fetchImages.id}>
+                  <Col md={4} key={fetchImages.id}>
                     <div className="img-wrapper">
                       <LazyLoadImage
                         src={fetchImages.download_url}
